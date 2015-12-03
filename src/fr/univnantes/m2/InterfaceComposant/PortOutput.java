@@ -1,6 +1,7 @@
 package fr.univnantes.m2.InterfaceComposant;
 
 import fr.univnantes.m2.Configuration.Composant;
+import fr.univnantes.m2.Configuration.EventInConfiguration;
 
 public class PortOutput extends Port{
 
@@ -9,8 +10,9 @@ public class PortOutput extends Port{
 	}
 
 	public void send(Object o){
-		System.out.println(name+ " has been called with :"+o );
+		System.out.println(name+ " send : " +o);
+		EventInConfiguration ev = new EventInConfiguration(this, o);
 		setChanged();
-		notifyObservers(o);
+		notifyObservers(ev);
 	}
 }

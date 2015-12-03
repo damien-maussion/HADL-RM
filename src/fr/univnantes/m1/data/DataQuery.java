@@ -14,6 +14,6 @@ public class DataQuery extends Data{
 	}
 	
 	public String toString(){
-		return "Query: "+query;
+		return "{DataQuery = query:"+query+" }";
 	}
 }

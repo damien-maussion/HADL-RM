@@ -11,7 +11,7 @@ public class SimpleConnector extends Connector{
 
 	@Override
 	public void transmit(Object data) {
-		System.out.println(name+" transmit");
+		System.out.println(name+" transmit : "+data);
 		setChanged();
 		notifyObservers(new EventInConfiguration(roleTo, glue(data)));
 	}

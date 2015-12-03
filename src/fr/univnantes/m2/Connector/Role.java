@@ -5,11 +5,15 @@ import java.util.Observable;
 public abstract class Role extends Observable{
 	protected String name;
 
+	public Role(String n){
+		name=n;
+	}
+	
 	public String getName() {
 		return name;
 	}
 	
-	public Role(String n){
-		name=n;
+	public String toString(){
+		return name;
 	}
 }

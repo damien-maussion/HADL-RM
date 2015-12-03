@@ -43,6 +43,7 @@ public class ClientCaller {
 
 		//call service
 		DataQuery data =new DataQuery("client", "test");
+		System.out.println("\tCall service Client.SendRequestService( "+data+" ):\n");
 		cl.callService("SendRequestService", data);
 	}
 

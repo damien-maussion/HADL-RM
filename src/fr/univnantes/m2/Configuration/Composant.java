@@ -66,10 +66,9 @@ public class Composant extends Observable implements Observer{
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println(name+ " has been called with :"+o + " "+arg);
-		EventInConfiguration e = new EventInConfiguration(o, arg);
+		//System.out.println(this + " has been notified : "+arg);
 		setChanged();
-		notifyObservers(e);
+		notifyObservers(arg);
 	}
 	
 	public Port getPortByName(String name){
@@ -88,4 +87,7 @@ public class Composant extends Observable implements Observer{
 		}
 	}
 
+	public String toString(){
+		return name;
+	}
 }

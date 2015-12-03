@@ -69,23 +69,24 @@ public class Configuration extends Composant implements Observer{
 	}
 	
 	public void update(Observable o, Object arg) {
-		super.update(o, arg);
+		
+		//System.out.println(this + " has been notified : "+arg);
+		
+		boolean treated = false;
 		
 		EventInConfiguration ev = (EventInConfiguration) arg;
 		if (ev.getSrc() instanceof PortOutput){
-			//System.out.println("port Out");
 			PortOutput p = (PortOutput) (ev.getSrc());
 			for (Attachment att : attachments){
-				//System.out.println(att.getPort()+ " == "+p +"? "+att.getPort().equals(p));
 				if (att.getPort().equals(p)){
-					System.out.println("find "+att);
+					treated = true;
 					RoleFrom rf = (RoleFrom) att.getRole();
-					System.out.println(rf+" "+ev.getArg());
 					rf.receive(ev.getArg());
 				}	
 			}
 			for (Binding bind: bindings){
 				if (p.equals(bind.getPortComposant())){
+					treated = true;
 					PortOutput pconf = (PortOutput) bind.getPortConfiguration();
 					pconf.send(ev.getArg());
 				}	
@@ -95,20 +96,27 @@ public class Configuration extends Composant implements Observer{
 			PortInput p = (PortInput) (ev.getSrc());
 			for (Binding bind: bindings){
 				if (p.equals(bind.getPortConfiguration())){
+					treated = true;
 					PortInput pcomp = (PortInput) bind.getPortComposant();
 					pcomp.receice(ev.getArg());
 				}	
 			}
 		}
 		else if (ev.getSrc() instanceof RoleTo){
-			System.out.println("roleTo");
 			RoleTo r = (RoleTo) (ev.getSrc());
 			for (Attachment a : attachments){
 				if (a.getRole().equals(r)){
+					treated = true;
 					PortInput p = (PortInput) a.getPort();
 					p.receice(ev.getArg());
 				}	
 			}
 		}
+		
+		if (!treated){
+			setChanged();
+			notifyObservers(ev);
+		}
+		
 	}
 }

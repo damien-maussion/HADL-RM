@@ -24,14 +24,4 @@ public class Client extends Composant {
 		interfaceComposants.add(so);
 		interfaceComposants.add(po);
 	}
-
-	
-	public static void main(String args[]){
-		Client c = new Client();
-		c.callService("SendRequestService", "test");
-		
-		PortInput p = (PortInput) c.getPortByName("ReceiveResponsePort");
-		p.receice("test 2");
-	
-	}
 }

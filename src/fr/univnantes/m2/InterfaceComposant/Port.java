@@ -6,6 +6,7 @@ public abstract class Port extends InterfaceComposant{
 
 	public Port(String n, Composant c) {
 		super(n,c);
+		addObserver(c);
 	}
 
 }

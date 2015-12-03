@@ -10,7 +10,7 @@ public class RoleFrom extends Role{
 	}
 
 	public void receive(Object data){
-		System.out.println("role receive: "+data);
+		System.out.println(this + " receive "+ data);
 		connector.transmit(data);
 	}
 }

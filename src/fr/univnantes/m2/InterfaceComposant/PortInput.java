@@ -10,7 +10,7 @@ public class PortInput extends Port {
 	}
 	
 	public void receice(Object o){
-		System.out.println(name+ " has been called with :"+o );
+		System.out.println(name+ " receive : "+o );
 		EventInConfiguration ev = new EventInConfiguration(this, o);
 		setChanged();
 		notifyObservers(ev);
