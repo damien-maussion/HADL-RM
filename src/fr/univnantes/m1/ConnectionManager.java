@@ -2,6 +2,8 @@ package fr.univnantes.m1;
 
 import java.util.Observable;
 
+import fr.univnantes.m1.data.Data;
+import fr.univnantes.m1.data.DataType;
 import fr.univnantes.m2.Configuration.Composant;
 import fr.univnantes.m2.Configuration.EventInConfiguration;
 import fr.univnantes.m2.InterfaceComposant.PortInput;
@@ -64,9 +66,18 @@ public class ConnectionManager extends Composant{
 		if (ev.getSrc() instanceof PortInput){
 			PortInput p = (PortInput) ev.getSrc();
 			if ("ExternalSocketPR".equals(p.getName())){
-				treated=true;
+				Data data = (Data) ev.getArg();
+				if (data.getDataType()== DataType.QUERY){
+					callService("dbQuerySF", ev.getArg());
+				}
+				else if (data.getDataType()== DataType.AUTHENTIFICATION_QUERY){
+					callService("security_checkSF", ev.getArg());
+				}
+			}
+			else{
 				callService("ExternalSocketSF", ev.getArg());
 			}
+			treated=true;
 		}
 		
 		if (!treated){

@@ -12,5 +12,9 @@ public class DataResponse extends Data{
 	public String getResponse() {
 		return response;
 	}
+	
+	public String toString(){
+		return "{DataResponse = query:"+response+" }";
+	}
 
 }

@@ -12,5 +12,9 @@ public class DataAuthResponse extends Data{
 	public boolean isAllowed() {
 		return allowed;
 	}
+	
+	public String toString(){
+		return "{DataAuthResponse = allowed:"+allowed+" }";
+	}
 
 }
