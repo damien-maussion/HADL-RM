@@ -13,7 +13,7 @@ import fr.univnantes.m2.Link.AttachmentToInput;
 import fr.univnantes.m2.Link.BindingInput;
 import fr.univnantes.m2.Link.BindingOutput;
 
-public class ClientCaller {
+public class ClientServeur {
 
 	public static void main(String[] args) {
 		
@@ -43,15 +43,15 @@ public class ClientCaller {
 		cs.addBinding(new BindingOutput((PortOutput) s.getPortByName("ExternalSocketPF"), (PortOutput) s.getPortByName("SendResponsePort")));
 
 		//call service 
-		DataQuery data = new DataQuery("client", "test");
+		DataQuery data = new DataQuery("client", "toto");
 		System.out.println("\tCall service Client.SendRequestService( "+data+" ):\n");
 		cl.callService("SendRequestService", data);
 		
-		DataAuth data2 = new DataAuth("client");
+		DataAuth data2 = new DataAuth("toto");
 		System.out.println("\n\tCall service Client.SendRequestService( "+data2+" ):\n");
 		cl.callService("SendRequestService", data2);
 		
-		DataAuth data3 = new DataAuth("client2");
+		DataAuth data3 = new DataAuth("titi");
 		System.out.println("\n\tCall service Client.SendRequestService( "+data3+" ):\n");
 		cl.callService("SendRequestService", data3);
 	}

@@ -2,19 +2,19 @@ package fr.univnantes.m1.data;
 
 public class DataResponse extends Data{
 
-	private String response;
+	private User user;
 	
-	public DataResponse(String idS, String r) {
+	public DataResponse(String idS, User u) {
 		super(DataType.RESPONSE, idS);
-		response=r;
+		user=u;
 	}
 
-	public String getResponse() {
-		return response;
+	public User getResponse() {
+		return user;
 	}
 	
 	public String toString(){
-		return "{DataResponse = query:"+response+" }";
+		return "{DataResponse = user:"+user+" }";
 	}
 
 }

@@ -1,11 +1,14 @@
 package fr.univnantes.m1;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 
 import fr.univnantes.m1.data.DataAuth;
 import fr.univnantes.m1.data.DataAuthResponse;
 import fr.univnantes.m1.data.DataQuery;
 import fr.univnantes.m1.data.DataResponse;
+import fr.univnantes.m1.data.User;
 import fr.univnantes.m2.Configuration.Composant;
 import fr.univnantes.m2.Configuration.EventInConfiguration;
 import fr.univnantes.m2.InterfaceComposant.PortInput;
@@ -15,6 +18,8 @@ import fr.univnantes.m2.InterfaceComposant.ServiceOutput;
 
 public class Database extends Composant {
 
+	private Map<String, User> database;
+	
 	public Database() {
 		super("Database");
 		
@@ -43,6 +48,10 @@ public class Database extends Composant {
 		interfaceComposants.add(si2);
 		interfaceComposants.add(so2);
 		interfaceComposants.add(po2);
+		
+		database = new HashMap<>();
+		database.put("toto", new User("toto", true));
+		database.put("titi", new User("titi", false));
 	}
 	
 	@Override
@@ -59,7 +68,7 @@ public class Database extends Composant {
 				
 				DataQuery data = (DataQuery) ev.getArg();
 					
-				DataResponse dr = new DataResponse(data.getIdSender(), new StringBuilder(data.getQuery()).reverse().toString());
+				DataResponse dr = new DataResponse(data.getIdSender(), database.get(data.getQuery()));
 				
 				callService("query_DSF", dr);
 					
@@ -68,7 +77,9 @@ public class Database extends Composant {
 				
 				DataAuth data = (DataAuth) ev.getArg();
 				
-				DataAuthResponse dr = new DataAuthResponse(data.getIdSender(), data.getIdSender().length()%2==0);
+				boolean allowed = (database.get(data.getIdSender()) != null) && database.get(data.getIdSender()).isAllowed();
+				
+				DataAuthResponse dr = new DataAuthResponse(data.getIdSender(), allowed);
 				
 				callService("security_managementSF", dr);
 			}
